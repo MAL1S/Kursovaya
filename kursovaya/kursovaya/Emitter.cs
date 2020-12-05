@@ -37,22 +37,13 @@ namespace kursovaya
 
             foreach (var particle in particles)
             {
-                //particle.life--;
-                if (particle.life <= 0)
+                particle.life--;
+                if (particle.life < 0)
                 {
-                    if (particlesToCreate > 0)
-                    {
-                        particlesToCreate--;
-                        resetParticle(particle);
-                    }
+                    resetParticle(particle);
                 }
                 else
                 {
-                    foreach (var point in impactPoints)
-                    {
-                        point.impactParticle(particle);
-                    }
-
                     particle.speedX += gravitationX;
                     particle.speedY += Speed;
 
@@ -107,11 +98,12 @@ namespace kursovaya
             return particle;
         }
 
-        public bool ifInCircle(out float circleX, out float circleY, out int circleRadius)
+        public bool ifInCircle(out float circleX, out float circleY, out int circleRadius, out float life)
         {
             circleX = 0;
             circleY = 0;
             circleRadius = 0;
+            life = 0;
             foreach (var particle in particles)
             {
                 float gX = X - particle.x;
@@ -123,6 +115,7 @@ namespace kursovaya
                     circleX = particle.x;
                     circleY = particle.y;
                     circleRadius = particle.radius;
+                    life = particle.life;
                     return true;
                 }
             }

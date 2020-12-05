@@ -42,12 +42,13 @@ namespace kursovaya
             emitter.X = e.X;
             emitter.Y = e.Y;
 
-            float circleX, circleY;
+            float circleX, circleY, life;
             int circleRadius;
-            if (emitter.ifInCircle(out circleX, out circleY, out circleRadius))
+            if (emitter.ifInCircle(out circleX, out circleY, out circleRadius, out life))
             {
                 Graphics circle = picDisplay.CreateGraphics();
                 drawCircle(circle, circleX-circleRadius, circleY-circleRadius, circleRadius);
+                showCircleInfo(circle, circleX, circleY, circleRadius, life);
             }
         }
         
@@ -55,6 +56,23 @@ namespace kursovaya
         {
             Pen pen = new Pen(Brushes.Red);
             g.DrawEllipse(pen, x, y, radius*2, radius*2);
+        }
+
+        private void showCircleInfo(Graphics g, float x, float y, int radius, float life)
+        {
+            var stringFormat = new StringFormat();
+            //stringFormat.Alignment = StringAlignment.Center;
+            //stringFormat.LineAlignment = StringAlignment.Center;
+
+            g.DrawString(
+                $"X : {x}\n" +
+                $"Y : {y}\n" +
+                $"Life : {life}",
+                new Font("Verdana", 10),
+                new SolidBrush(Color.White),
+                x,
+                y - radius
+                );
         }
 
         private void speedBar_ValueChanged(object sender, EventArgs e)
