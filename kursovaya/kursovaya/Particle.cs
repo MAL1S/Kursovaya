@@ -13,20 +13,15 @@ namespace kursovaya
         public float speedY;
         public float life;
 
-
-        public int red;
-        public int green;
-        public int blue;
-
         public static Random rnd = new Random();
 
         public Particle()
         {
             var direction = (double)rnd.Next(360);
-            int speed = 1;
+            //float speed = 5;
 
-            speedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
-            speedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
+            //speedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
+            //speedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
 
             radius = 2 + rnd.Next(10);
             life = 20 + rnd.Next(100);

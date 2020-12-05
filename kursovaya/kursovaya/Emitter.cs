@@ -6,11 +6,10 @@ namespace kursovaya
 {
     public class Emitter
     {
-        List<Particle> particles = new List<Particle>();
+        public List<Particle> particles = new List<Particle>();
         public int mousePositionX = 0;
         public int mousePositionY = 0;
 
-        public List<IImpactPoint> impactPoints = new List<IImpactPoint>();
         public float gravitationX = 0;
         public float gravitationY = 0;
 
@@ -20,18 +19,18 @@ namespace kursovaya
         public int Y; // соответствующая координата Y 
         public int Direction = 0; // вектор направления в градусах куда сыпет эмиттер
         public int Spreading = 360; // разброс частиц относительно Direction
-        public int Speed = 1; // начальная минимальная скорость движения частицы
+        public float Speed = 0; // начальная минимальная скорость движения частицы
         public int RadiusMin = 15; // минимальный радиус частицы
         public int RadiusMax = 35; // максимальный радиус частицы
         public int LifeMin = 20; // минимальное время жизни частицы
         public int LifeMax = 100; // максимальное время жизни частицы
 
-        public int ParticlesPerTick = 1;
+        public int ParticlesPerTick = 2;
 
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
 
-        public void updateState(int gravitation)
+        public void updateState()
         {
             int particlesToCreate = ParticlesPerTick;
 
@@ -45,7 +44,7 @@ namespace kursovaya
                 else
                 {
                     particle.speedX += gravitationX;
-                    particle.speedY += Speed;
+                    particle.speedY += gravitationY;
 
                     particle.x += particle.speedX;
                     particle.y += particle.speedY;
@@ -67,11 +66,6 @@ namespace kursovaya
             {
                 particle.draw(g);
             }
-
-            foreach (var point in impactPoints)
-            {
-                point.render(g);
-            }
         }
 
         public virtual void resetParticle(Particle particle)
@@ -81,10 +75,9 @@ namespace kursovaya
             particle.y = Y;
 
             var direction = Direction + (double)Particle.rnd.Next(Spreading) - Spreading / 2;
-            //var speed = Particle.rnd.Next(SpeedMin, SpeedMax);
 
-            //particle.speedX = (float)(Math.Cos(direction / 180 * Math.PI) * Speed);
-            //particle.speedY = -(float)(Math.Sin(direction / 180 * Math.PI) * Speed);
+            particle.speedX = (int)(Math.Cos(direction / 180 * Math.PI) * Speed);
+            particle.speedY = -(float)(Math.Sin(direction / 180 * Math.PI) * Speed);
 
             particle.radius = Particle.rnd.Next(RadiusMin, RadiusMax);
         }
@@ -120,7 +113,7 @@ namespace kursovaya
                 }
             }
             return false;
-        }
+        }      
     }
 
     public class TopEmitter : Emitter
@@ -134,8 +127,8 @@ namespace kursovaya
             particle.x = Particle.rnd.Next(width);
             particle.y = 0;
 
-            particle.speedY = 0;
-            particle.speedX = Particle.rnd.Next(-2, 2);
+            particle.speedY = 1;
+            particle.speedX = Particle.rnd.Next(-5, 5);
         }
     }
 }

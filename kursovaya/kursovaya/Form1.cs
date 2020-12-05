@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace kursovaya
@@ -22,19 +22,22 @@ namespace kursovaya
             emitter = new TopEmitter
             {
                 width = picDisplay.Width,
-                gravitationY = speedBar.Value
+                gravitationY = 5
             };
+            timer1.Interval = 1000;
         }     
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            emitter.updateState(speedBar.Value);
+            drawSpeedVector();
+            emitter.updateState();
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
                 g.Clear(Color.Black);
                 emitter.render(g);
             }
             picDisplay.Invalidate();
+           
         }
         
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
@@ -60,10 +63,6 @@ namespace kursovaya
 
         private void showCircleInfo(Graphics g, float x, float y, int radius, float life)
         {
-            var stringFormat = new StringFormat();
-            //stringFormat.Alignment = StringAlignment.Center;
-            //stringFormat.LineAlignment = StringAlignment.Center;
-
             g.DrawString(
                 $"X : {x}\n" +
                 $"Y : {y}\n" +
@@ -77,9 +76,24 @@ namespace kursovaya
 
         private void speedBar_ValueChanged(object sender, EventArgs e)
         {
-            emitter.Speed = speedBar.Value-1;
-            label1.Text = speedBar.Value.ToString();
-            label2.Text = emitter.Speed.ToString();
+            if (speedBar.Value == 0) { timer1.Enabled = false; return; }
+            timer1.Enabled = true;
+            timer1.Interval = 1000 - 100 * speedBar.Value;
+            label1.Text = timer1.Interval.ToString();
+        }
+
+        public void drawSpeedVector()
+        {
+            Graphics speedVector = picDisplay.CreateGraphics();
+
+            foreach (var particle in emitter.particles)
+            {
+                int deviation = (int)(particle.speedX * 9);
+                Pen pen = new Pen(Brushes.Green);
+                speedVector.DrawLine(pen, new Point((int)particle.x, (int)particle.y),
+                    new Point((int)(particle.x + particle.radius * Math.Cos(deviation - 90)), 
+                    (int)(particle.y + particle.radius * Math.Sin(deviation - 90))));
+            }
         }
 
         private void stopButton_Click(object sender, EventArgs e)
@@ -98,17 +112,6 @@ namespace kursovaya
         private void startButton_Click(object sender, EventArgs e)
         {
             timer1.Start();
-        }
-
-        private void picDisplay_Click(object sender, EventArgs e)
-        {
-            //Point pt = new Point(e.X, e.Y);
-
-        }
-
-        private void picDisplay_MouseClick(object sender, MouseEventArgs e)
-        {
-            
         }
     }
 }

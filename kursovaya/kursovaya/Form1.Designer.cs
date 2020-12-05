@@ -34,10 +34,9 @@
             this.speedBar = new System.Windows.Forms.TrackBar();
             this.startButton = new System.Windows.Forms.Button();
             this.stepButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.stopButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).BeginInit();
             this.SuspendLayout();
@@ -49,8 +48,6 @@
             this.picDisplay.Size = new System.Drawing.Size(776, 426);
             this.picDisplay.TabIndex = 0;
             this.picDisplay.TabStop = false;
-            this.picDisplay.Click += new System.EventHandler(this.picDisplay_Click);
-            this.picDisplay.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseClick);
             this.picDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseMove);
             // 
             // timer1
@@ -61,10 +58,12 @@
             // 
             // speedBar
             // 
-            this.speedBar.Location = new System.Drawing.Point(261, 478);
+            this.speedBar.Location = new System.Drawing.Point(282, 475);
+            this.speedBar.Maximum = 9;
             this.speedBar.Name = "speedBar";
             this.speedBar.Size = new System.Drawing.Size(134, 45);
             this.speedBar.TabIndex = 3;
+            this.speedBar.Value = 1;
             this.speedBar.ValueChanged += new System.EventHandler(this.speedBar_ValueChanged);
             // 
             // startButton
@@ -87,33 +86,6 @@
             this.stepButton.UseVisualStyleBackColor = true;
             this.stepButton.Click += new System.EventHandler(this.stepButton_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(451, 455);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "label1";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(451, 480);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "label2";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(451, 512);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "label3";
-            // 
             // stopButton
             // 
             this.stopButton.Location = new System.Drawing.Point(148, 455);
@@ -124,15 +96,32 @@
             this.stopButton.UseVisualStyleBackColor = true;
             this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
             // 
+            // backButton
+            // 
+            this.backButton.Location = new System.Drawing.Point(148, 499);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(107, 38);
+            this.backButton.TabIndex = 10;
+            this.backButton.Text = "Шаг назад";
+            this.backButton.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(499, 499);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 561);
-            this.Controls.Add(this.stopButton);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.backButton);
+            this.Controls.Add(this.stopButton);
             this.Controls.Add(this.stepButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.speedBar);
@@ -153,10 +142,9 @@
         private System.Windows.Forms.TrackBar speedBar;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button stepButton;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button stopButton;
+        private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Label label1;
     }
 }
 
