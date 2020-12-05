@@ -12,7 +12,6 @@ namespace kursovaya
 {
     public partial class Form1 : Form
     {
-        List<Emitter> emitters = new List<Emitter>();
         Emitter emitter;
 
         public Form1()
@@ -40,8 +39,22 @@ namespace kursovaya
         
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
-            emitter.mousePositionX = e.X;
-            emitter.mousePositionY = e.Y;
+            emitter.X = e.X;
+            emitter.Y = e.Y;
+
+            float circleX, circleY;
+            int circleRadius;
+            if (emitter.ifInCircle(out circleX, out circleY, out circleRadius))
+            {
+                Graphics circle = picDisplay.CreateGraphics();
+                drawCircle(circle, circleX-circleRadius, circleY-circleRadius, circleRadius);
+            }
+        }
+        
+        private void drawCircle(Graphics g, float x, float y, int radius)
+        {
+            Pen pen = new Pen(Brushes.Red);
+            g.DrawEllipse(pen, x, y, radius*2, radius*2);
         }
 
         private void speedBar_ValueChanged(object sender, EventArgs e)
@@ -67,6 +80,17 @@ namespace kursovaya
         private void startButton_Click(object sender, EventArgs e)
         {
             timer1.Start();
+        }
+
+        private void picDisplay_Click(object sender, EventArgs e)
+        {
+            //Point pt = new Point(e.X, e.Y);
+
+        }
+
+        private void picDisplay_MouseClick(object sender, MouseEventArgs e)
+        {
+            
         }
     }
 }

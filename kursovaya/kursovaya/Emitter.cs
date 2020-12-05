@@ -106,6 +106,28 @@ namespace kursovaya
 
             return particle;
         }
+
+        public bool ifInCircle(out float circleX, out float circleY, out int circleRadius)
+        {
+            circleX = 0;
+            circleY = 0;
+            circleRadius = 0;
+            foreach (var particle in particles)
+            {
+                float gX = X - particle.x;
+                float gY = Y - particle.y;
+
+                double r = Math.Sqrt(gX * gX + gY * gY); // считаем расстояние от центра точки до центра частицы
+                if (r + particle.radius <= particle.radius * 2) // если частица оказалось внутри окружности
+                {
+                    circleX = particle.x;
+                    circleY = particle.y;
+                    circleRadius = particle.radius;
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     public class TopEmitter : Emitter
