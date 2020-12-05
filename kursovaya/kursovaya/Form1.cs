@@ -29,15 +29,13 @@ namespace kursovaya
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            drawSpeedVector();
             emitter.updateState();
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
                 g.Clear(Color.Black);
                 emitter.render(g);
             }
-            picDisplay.Invalidate();
-           
+            picDisplay.Invalidate();         
         }
         
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)

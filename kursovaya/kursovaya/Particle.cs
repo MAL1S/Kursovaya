@@ -36,7 +36,7 @@ namespace kursovaya
             var b = new SolidBrush(color);
 
             g.FillEllipse(b, x - radius, y - radius, radius * 2, radius * 2);
-
+                   
             b.Dispose();
         }
     }
@@ -63,6 +63,13 @@ namespace kursovaya
             var b = new SolidBrush(color);
 
             g.FillEllipse(b, x - radius, y - radius, radius * 2, radius * 2);
+
+            int deviation = (int)speedX;
+
+            Pen pen = new Pen(Brushes.Green);
+            g.DrawLine(pen, new Point((int)x, (int)y),
+                new Point((int)(x + deviation),
+                (int)(y + radius/4*3)));
 
             b.Dispose();
         }
