@@ -7,8 +7,8 @@ namespace kursovaya
     public class Emitter
     {
         public List<Particle> particles = new List<Particle>();
-        public int mousePositionX = 0;
-        public int mousePositionY = 0;
+        public List<List<Particle>> particlesHistory = new List<List<Particle>>(20);
+        public int currentHistoryIndex = 0;
 
         public float gravitationX = 0;
         public float gravitationY = 0;
@@ -49,6 +49,7 @@ namespace kursovaya
                     particle.x += particle.speedX;
                     particle.y += particle.speedY;
                 }
+
             }
 
             while (particlesToCreate >= 1)
@@ -58,13 +59,35 @@ namespace kursovaya
                 resetParticle(particle);
                 particles.Add(particle);
             }
+           
+            if (currentHistoryIndex < 19)
+            {
+                particlesHistory.Add(new List<Particle>());
+                foreach (Particle particle in particles)
+                {
+                    Particle part = new Particle(particle);
+                    particlesHistory[currentHistoryIndex].Add(part);
+                }
+                currentHistoryIndex++;
+            }
+            else
+            {
+                particlesHistory.RemoveAt(0);
+                particlesHistory.Add(new List<Particle>());
+                foreach (Particle particle in particles)
+                {
+                    Particle part = new Particle(particle);
+                    particlesHistory[currentHistoryIndex].Add(part);
+                }
+            }
         }
-
+    
         public void render(Graphics g)
         {
             foreach (var particle in particles)
             {
                 particle.draw(g);
+                if (particle is ParticleColorful)((ParticleColorful)particle).drawSpeedVectors(g);
             }
         }
 

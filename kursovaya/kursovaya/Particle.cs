@@ -27,6 +27,16 @@ namespace kursovaya
             life = 20 + rnd.Next(100);
         }
 
+        public Particle(Particle particle)
+        {
+            this.x = particle.x;
+            this.y = particle.y;
+            this.radius = particle.radius;
+            this.speedX = particle.speedX;
+            this.speedY = particle.speedY;
+            this.life = particle.life;
+        }
+
         public virtual void draw(Graphics g)
         {
             float k = Math.Min(1f, life / 100);
@@ -39,11 +49,28 @@ namespace kursovaya
                    
             b.Dispose();
         }
+
+        public override string ToString()
+        {
+            return $"X : {x}, Y : {y}";
+        }
     }
 
     public class ParticleColorful : Particle {
         public Color fromColor;
         public Color toColor;
+
+        /*public ParticleColorful(ParticleColorful particleColorful)
+        {
+            this.x = particleColorful.x;
+            this.y = particleColorful.y;
+            this.radius = particleColorful.radius;
+            this.speedX = particleColorful.speedX;
+            this.speedY = particleColorful.speedY;
+            this.life = particleColorful.life;
+            this.fromColor = particleColorful.fromColor;
+            this.toColor = particleColorful.toColor;
+        }*/
 
         public static Color mixColor(Color color1, Color color2, float k)
         {
@@ -63,15 +90,19 @@ namespace kursovaya
             var b = new SolidBrush(color);
 
             g.FillEllipse(b, x - radius, y - radius, radius * 2, radius * 2);
+        
+            b.Dispose();
+        }
 
+        public void drawSpeedVectors(Graphics g)
+        {
             int deviation = (int)speedX;
 
             Pen pen = new Pen(Brushes.Green);
             g.DrawLine(pen, new Point((int)x, (int)y),
                 new Point((int)(x + deviation),
-                (int)(y + radius/4*3)));
-
-            b.Dispose();
+                (int)(y + radius / 4 * 3)));
+            pen.Dispose();
         }
     }
 }

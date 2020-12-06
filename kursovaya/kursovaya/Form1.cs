@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -35,7 +36,8 @@ namespace kursovaya
                 g.Clear(Color.Black);
                 emitter.render(g);
             }
-            picDisplay.Invalidate();         
+            picDisplay.Invalidate();
+            label2.Text = emitter.particlesHistory[emitter.currentHistoryIndex - 1][0].ToString();
         }
         
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
@@ -101,15 +103,65 @@ namespace kursovaya
 
         private void stepButton_Click(object sender, EventArgs e)
         {
-            timer1.Stop();
-            timer1_Tick(sender, e);
-            timer1.Stop();
-
+            if (emitter.currentHistoryIndex < emitter.particlesHistory.Count)
+            {
+                //поставить значения дальше по списку
+                emitter.currentHistoryIndex++;
+            }
+            else
+            {
+                timer1.Stop();
+                timer1_Tick(sender, e);
+                timer1.Stop();
+            }
         }
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            timer1.Start();
+            if (emitter.currentHistoryIndex != 19)
+            {
+                //поставить значения дальше по списку
+                emitter.currentHistoryIndex++;
+            }
+            else timer1.Start();
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            if (emitter.currentHistoryIndex >= 1)
+            {
+                //вернуться на значения из списка
+                emitter.particles.RemoveRange(0, emitter.particles.Count);              
+                foreach (Particle particle in emitter.particlesHistory[emitter.currentHistoryIndex-1])
+                {
+                    Particle part = new Particle(particle);
+                    emitter.particles.Add(part);
+                }
+                
+                var g = Graphics.FromImage(picDisplay.Image);
+                emitter.render(g);
+                emitter.currentHistoryIndex--;
+            }
+        }
+
+        private void listButton_Click(object sender, EventArgs e)
+        {
+            using (StreamWriter sw = new StreamWriter(@"D:\test.txt", false, System.Text.Encoding.Default))
+            { 
+                string text = "";
+                
+                foreach (List<Particle> list in emitter.particlesHistory)
+                {
+                    foreach (Particle particle in list)
+                    {
+                        text += particle.ToString() + " | ";
+                    }
+                    text += "\n";
+                }
+                sw.Write(text);
+
+            }
+            MessageBox.Show(emitter.particlesHistory.Count.ToString());
         }
     }
 }
