@@ -6,9 +6,10 @@ namespace kursovaya
 {
     public class Emitter
     {
-        public List<Particle> particles = new List<Particle>();
-        public List<List<Particle>> particlesHistory = new List<List<Particle>>(20);
+        public List<ParticleColorful> particles = new List<ParticleColorful>();
+        public List<List<ParticleColorful>> particlesHistory = new List<List<ParticleColorful>>(20);
         public int currentHistoryIndex = 0;
+        public bool ifAdd = true; //в первый раз ли достигается последняя граница списка истории
 
         public float gravitationX = 0;
         public float gravitationY = 0;
@@ -26,68 +27,91 @@ namespace kursovaya
         public int LifeMax = 100; // максимальное время жизни частицы
 
         public int ParticlesPerTick = 2;
+        public long tickRate = 30;
+        public long tickCount = 0;
 
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
 
         public void updateState()
-        {
-            int particlesToCreate = ParticlesPerTick;
-
-            foreach (var particle in particles)
+        {          
+            if (tickCount % tickRate == 0)
             {
-                particle.life--;
-                if (particle.life < 0)
+                if (currentHistoryIndex != 19 && currentHistoryIndex < particlesHistory.Count - 1)
                 {
+                    //поставить значения дальше по списку
+                    particles.RemoveRange(0, particles.Count);
+                    foreach (ParticleColorful particle in particlesHistory[currentHistoryIndex + 1])
+                    {
+                        ParticleColorful part = new ParticleColorful(particle);
+                        particles.Add(part);
+                    }
+                    currentHistoryIndex++;
+                    tickCount++;
+                    return;
+                }
+
+                int particlesToCreate = ParticlesPerTick;
+
+                foreach (var particle in particles)
+                {
+                    particle.life--;
+                    if (particle.life < 0)
+                    {
+                        resetParticle(particle);
+                    }
+                    else
+                    {
+                        particle.speedX += gravitationX;
+                        particle.speedY += gravitationY;
+
+                        particle.x += particle.speedX;
+                        particle.y += particle.speedY;
+                    }
+
+                }
+
+                while (particlesToCreate >= 1)
+                {
+                    particlesToCreate--;
+                    ParticleColorful particle = CreateParticle();
                     resetParticle(particle);
+                    particles.Add(particle);
+                }
+
+                if (currentHistoryIndex < 19)
+                {
+                    particlesHistory.Add(new List<ParticleColorful>());
+                    foreach (var particle in particles)
+                    {
+                        ParticleColorful part = createParticleColorful(particle);
+                        particlesHistory[currentHistoryIndex].Add(part);
+                    }
+                    currentHistoryIndex++;
+                    ifAdd = true;
                 }
                 else
                 {
-                    particle.speedX += gravitationX;
-                    particle.speedY += gravitationY;
-
-                    particle.x += particle.speedX;
-                    particle.y += particle.speedY;
-                }
-
-            }
-
-            while (particlesToCreate >= 1)
-            {
-                particlesToCreate--;
-                var particle = CreateParticle();
-                resetParticle(particle);
-                particles.Add(particle);
-            }
-           
-            if (currentHistoryIndex < 19)
-            {
-                particlesHistory.Add(new List<Particle>());
-                foreach (Particle particle in particles)
-                {
-                    Particle part = new Particle(particle);
-                    particlesHistory[currentHistoryIndex].Add(part);
-                }
-                currentHistoryIndex++;
-            }
-            else
-            {
-                particlesHistory.RemoveAt(0);
-                particlesHistory.Add(new List<Particle>());
-                foreach (Particle particle in particles)
-                {
-                    Particle part = new Particle(particle);
-                    particlesHistory[currentHistoryIndex].Add(part);
+                    if (!ifAdd) particlesHistory.RemoveAt(0);
+                    ifAdd = false;
+                    particlesHistory.Add(new List<ParticleColorful>());
+                    foreach (var particle in particles)
+                    {
+                        ParticleColorful part = createParticleColorful(particle);
+                        particlesHistory[currentHistoryIndex].Add(part);
+                    }
                 }
             }
+            tickCount++;
+            if (tickCount < 0) tickCount = 0;
         }
-    
+
         public void render(Graphics g)
         {
             foreach (var particle in particles)
             {
                 particle.draw(g);
-                if (particle is ParticleColorful)((ParticleColorful)particle).drawSpeedVectors(g);
+                if (particle is ParticleColorful) ((ParticleColorful)particle).drawSpeedVectors(g);
             }
         }
 
@@ -105,7 +129,7 @@ namespace kursovaya
             particle.radius = Particle.rnd.Next(RadiusMin, RadiusMax);
         }
 
-        public virtual Particle CreateParticle()
+        public virtual ParticleColorful CreateParticle()
         {
             var particle = new ParticleColorful();
             particle.fromColor = ColorFrom;
@@ -113,6 +137,21 @@ namespace kursovaya
 
             return particle;
         }
+
+
+        public ParticleColorful createParticleColorful(Particle particle)
+        {
+            return new ParticleColorful
+            {
+                radius = particle.radius,
+                speedX = particle.speedX,
+                speedY = particle.speedY,
+                x = particle.x,
+                y = particle.y,
+                life = particle.life,
+            };
+        }
+
 
         public bool ifInCircle(out float circleX, out float circleY, out int circleRadius, out float life)
         {
@@ -136,7 +175,7 @@ namespace kursovaya
                 }
             }
             return false;
-        }      
+        }
     }
 
     public class TopEmitter : Emitter

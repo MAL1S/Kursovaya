@@ -46,7 +46,7 @@ namespace kursovaya
             var b = new SolidBrush(color);
 
             g.FillEllipse(b, x - radius, y - radius, radius * 2, radius * 2);
-                   
+
             b.Dispose();
         }
 
@@ -56,11 +56,14 @@ namespace kursovaya
         }
     }
 
-    public class ParticleColorful : Particle {
+    public class ParticleColorful : Particle
+    {
         public Color fromColor;
         public Color toColor;
 
-        /*public ParticleColorful(ParticleColorful particleColorful)
+        public ParticleColorful() { }
+
+        public ParticleColorful(ParticleColorful particleColorful)
         {
             this.x = particleColorful.x;
             this.y = particleColorful.y;
@@ -70,7 +73,9 @@ namespace kursovaya
             this.life = particleColorful.life;
             this.fromColor = particleColorful.fromColor;
             this.toColor = particleColorful.toColor;
-        }*/
+            fromColor = Color.White;
+            toColor = Color.FromArgb(0, Color.Black);
+        }
 
         public static Color mixColor(Color color1, Color color2, float k)
         {
@@ -90,7 +95,7 @@ namespace kursovaya
             var b = new SolidBrush(color);
 
             g.FillEllipse(b, x - radius, y - radius, radius * 2, radius * 2);
-        
+
             b.Dispose();
         }
 

@@ -111,11 +111,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(499, 499);
+            this.label1.Location = new System.Drawing.Point(294, 459);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(113, 13);
             this.label1.TabIndex = 11;
-            this.label1.Text = "label1";
+            this.label1.Text = "Скорость симуляции";
             // 
             // listButton
             // 
@@ -130,11 +130,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(682, 524);
+            this.label2.Location = new System.Drawing.Point(289, 499);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(121, 13);
             this.label2.TabIndex = 13;
-            this.label2.Text = "label2";
+            this.label2.Text = "0  1  2  3  4  5  6  7  8  9";
             // 
             // Form1
             // 

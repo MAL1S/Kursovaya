@@ -18,3 +18,13 @@ D:\Kursovaya\kursovaya\kursovaya\obj\Debug\kursovaya.csproj.GenerateResource.cac
 D:\Kursovaya\kursovaya\kursovaya\obj\Debug\kursovaya.csproj.CoreCompileInputs.cache
 D:\Kursovaya\kursovaya\kursovaya\obj\Debug\kursovaya.exe
 D:\Kursovaya\kursovaya\kursovaya\obj\Debug\kursovaya.pdb
+D:\kursovaya\kursovaya\bin\Debug\kursovaya.exe.config
+D:\kursovaya\kursovaya\bin\Debug\kursovaya.exe
+D:\kursovaya\kursovaya\bin\Debug\kursovaya.pdb
+D:\kursovaya\kursovaya\obj\Debug\kursovaya.csprojResolveAssemblyReference.cache
+D:\kursovaya\kursovaya\obj\Debug\kursovaya.Form1.resources
+D:\kursovaya\kursovaya\obj\Debug\kursovaya.Properties.Resources.resources
+D:\kursovaya\kursovaya\obj\Debug\kursovaya.csproj.GenerateResource.cache
+D:\kursovaya\kursovaya\obj\Debug\kursovaya.csproj.CoreCompileInputs.cache
+D:\kursovaya\kursovaya\obj\Debug\kursovaya.exe
+D:\kursovaya\kursovaya\obj\Debug\kursovaya.pdb
