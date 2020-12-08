@@ -44,8 +44,8 @@ namespace kursovaya
                     foreach (ParticleColorful particle in particlesHistory[currentHistoryIndex + 1])
                     {
                         ParticleColorful part = new ParticleColorful(particle);
-                        part.toColor = ColorTo;
                         part.fromColor = ColorFrom;
+                        part.toColor = ColorTo;
                         particles.Add(part);
                     }
                     currentHistoryIndex++;
@@ -116,6 +116,8 @@ namespace kursovaya
             {
                 particle.draw(g);
                 if (particle is ParticleColorful) ((ParticleColorful)particle).drawSpeedVectors(g);
+                particle.fromColor = ColorFrom;
+                particle.toColor = ColorTo;
             }
         }
 

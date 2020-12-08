@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.Devices;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Media;
 using System.Windows.Forms;
 
 namespace kursovaya
@@ -148,8 +150,8 @@ namespace kursovaya
                 foreach (ParticleColorful particle in emitter.particlesHistory[emitter.currentHistoryIndex + 1])
                 {
                     ParticleColorful part = new ParticleColorful(particle);
-                    part.toColor = emitter.ColorTo;
                     part.fromColor = emitter.ColorFrom;
+                    part.toColor = emitter.ColorTo;
                     emitter.particles.Add(part);
                 }
                 emitter.currentHistoryIndex++;
@@ -171,7 +173,6 @@ namespace kursovaya
         private void backButton_Click(object sender, EventArgs e)
         {
             ifRun = false;
-            //backProhibition = true;
             if (emitter.currentHistoryIndex >= 2)
             {
                 //вернуться на значения из списка
@@ -179,8 +180,8 @@ namespace kursovaya
                 foreach (ParticleColorful particle in emitter.particlesHistory[emitter.currentHistoryIndex - 2])
                 {
                     ParticleColorful part = new ParticleColorful(particle);
-                    part.toColor = emitter.ColorTo;
                     part.fromColor = emitter.ColorFrom;
+                    part.toColor = emitter.ColorTo;
                     emitter.particles.Add(part);
                 }
                 emitter.currentHistoryIndex--;
@@ -203,6 +204,28 @@ namespace kursovaya
         public void setParticleColorTo(int R, int G, int B)
         {
             emitter.ColorTo = Color.FromArgb(R, G, B);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Random rand = new Random();
+            double H = rand.Next(0, 360), H1 = rand.Next(0, 360),
+                S = rand.Next(0, 100), S1 = rand.Next(0, 100),
+                V = rand.Next(0, 100), V1 = rand.Next(0, 100);
+            int R, R1, G, G1, B, B1;
+            ColorLogic.HSVToRGB(H, S, V, out R, out G, out B);
+            ColorLogic.HSVToRGB(H1, S1, V1, out R1, out G1, out B1);
+            emitter.ColorFrom = Color.FromArgb(R, G, B);
+            emitter.ColorTo = Color.FromArgb(R1, G1, B1);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var rnd = new Random();
+            foreach (var particle in emitter.particles)
+            {
+                particle.speedX = rnd.Next(-5, 5);
+            }
         }
     }
 }
