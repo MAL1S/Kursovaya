@@ -44,6 +44,8 @@ namespace kursovaya
                     foreach (ParticleColorful particle in particlesHistory[currentHistoryIndex + 1])
                     {
                         ParticleColorful part = new ParticleColorful(particle);
+                        part.toColor = ColorTo;
+                        part.fromColor = ColorFrom;
                         particles.Add(part);
                     }
                     currentHistoryIndex++;
@@ -56,6 +58,8 @@ namespace kursovaya
                 foreach (var particle in particles)
                 {
                     particle.life--;
+                    particle.fromColor = ColorFrom;
+                    particle.toColor = ColorTo;
                     if (particle.life < 0)
                     {
                         resetParticle(particle);

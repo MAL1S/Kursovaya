@@ -73,8 +73,6 @@ namespace kursovaya
             this.life = particleColorful.life;
             this.fromColor = particleColorful.fromColor;
             this.toColor = particleColorful.toColor;
-            fromColor = Color.White;
-            toColor = Color.FromArgb(0, Color.Black);
         }
 
         public static Color mixColor(Color color1, Color color2, float k)

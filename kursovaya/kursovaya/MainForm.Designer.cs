@@ -1,6 +1,6 @@
 ﻿namespace kursovaya
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -37,8 +37,9 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.listButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.colorButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).BeginInit();
             this.SuspendLayout();
@@ -117,16 +118,6 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "Скорость симуляции";
             // 
-            // listButton
-            // 
-            this.listButton.Location = new System.Drawing.Point(645, 474);
-            this.listButton.Name = "listButton";
-            this.listButton.Size = new System.Drawing.Size(107, 38);
-            this.listButton.TabIndex = 12;
-            this.listButton.Text = "Получить список";
-            this.listButton.UseVisualStyleBackColor = true;
-            this.listButton.Click += new System.EventHandler(this.listButton_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -136,13 +127,33 @@
             this.label2.TabIndex = 13;
             this.label2.Text = "0  1  2  3  4  5  6  7  8  9";
             // 
-            // Form1
+            // colorButton
+            // 
+            this.colorButton.Location = new System.Drawing.Point(465, 463);
+            this.colorButton.Name = "colorButton";
+            this.colorButton.Size = new System.Drawing.Size(158, 57);
+            this.colorButton.TabIndex = 14;
+            this.colorButton.Text = "Выбрать цвет для частиц";
+            this.colorButton.UseVisualStyleBackColor = true;
+            this.colorButton.Click += new System.EventHandler(this.colorButton_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(705, 479);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "label3";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 561);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.colorButton);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.listButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.stopButton);
@@ -150,7 +161,7 @@
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.speedBar);
             this.Controls.Add(this.picDisplay);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).EndInit();
@@ -169,8 +180,9 @@
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button listButton;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button colorButton;
+        private System.Windows.Forms.Label label3;
     }
 }
 

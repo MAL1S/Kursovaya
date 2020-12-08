@@ -6,13 +6,13 @@ using System.Windows.Forms;
 
 namespace kursovaya
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         Emitter emitter;
         bool ifRun = true;
         bool stepPermission = false;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
@@ -148,6 +148,8 @@ namespace kursovaya
                 foreach (ParticleColorful particle in emitter.particlesHistory[emitter.currentHistoryIndex + 1])
                 {
                     ParticleColorful part = new ParticleColorful(particle);
+                    part.toColor = emitter.ColorTo;
+                    part.fromColor = emitter.ColorFrom;
                     emitter.particles.Add(part);
                 }
                 emitter.currentHistoryIndex++;
@@ -177,30 +179,30 @@ namespace kursovaya
                 foreach (ParticleColorful particle in emitter.particlesHistory[emitter.currentHistoryIndex - 2])
                 {
                     ParticleColorful part = new ParticleColorful(particle);
+                    part.toColor = emitter.ColorTo;
+                    part.fromColor = emitter.ColorFrom;
                     emitter.particles.Add(part);
                 }
                 emitter.currentHistoryIndex--;
             }
         }
 
-        private void listButton_Click(object sender, EventArgs e)
+        private void colorButton_Click(object sender, EventArgs e)
         {
-            using (StreamWriter sw = new StreamWriter(@"D:\test.txt", false, System.Text.Encoding.Default))
-            {
-                string text = "";
+            //открытие второго окна с выбором цвета
+            ColorForm form2 = new ColorForm();
+            form2.Owner = this;
+            form2.Show();
+        }
 
-                foreach (List<ParticleColorful> list in emitter.particlesHistory)
-                {
-                    foreach (Particle particle in list)
-                    {
-                        text += particle.ToString() + " | ";
-                    }
-                    text += "\n";
-                }
-                sw.Write(text);
+        public void setParticleColorFrom(int R, int G, int B)
+        {
+            emitter.ColorFrom = Color.FromArgb(R, G, B);
+        }
 
-            }
-            MessageBox.Show(emitter.particlesHistory.Count.ToString());
+        public void setParticleColorTo(int R, int G, int B)
+        {
+            emitter.ColorTo = Color.FromArgb(R, G, B);
         }
     }
 }
