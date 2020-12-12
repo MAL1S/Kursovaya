@@ -10,7 +10,7 @@ namespace kursovaya
 {
     public partial class MainForm : Form
     {
-        Emitter emitter;
+        public Emitter emitter;
         bool ifRun = true;
         bool stepPermission = false;
 
@@ -47,22 +47,22 @@ namespace kursovaya
             emitter.Y = e.Y;
 
             float circleX, circleY, life;
-            int circleRadius;
-            if (emitter.ifInCircle(out circleX, out circleY, out circleRadius, out life))
+            int circleRadiusX, circleRadiusY;
+            if (emitter.ifInCircle(out circleX, out circleY, out circleRadiusX, out circleRadiusY, out life))
             {
                 Graphics circle = picDisplay.CreateGraphics();
-                drawCircle(circle, circleX - circleRadius, circleY - circleRadius, circleRadius);
-                showCircleInfo(circle, circleX, circleY, circleRadius, life);
+                drawEllipse(circle, circleX - circleRadiusX, circleY - circleRadiusY, circleRadiusX, circleRadiusY);
+                showCircleInfo(circle, circleX, circleY, circleRadiusY, life);
             }
         }
 
-        private void drawCircle(Graphics g, float x, float y, int radius)
+        private void drawEllipse(Graphics g, float x, float y, int radiusX, int radiusY)
         {
             Pen pen = new Pen(Brushes.Red);
-            g.DrawEllipse(pen, x, y, radius * 2, radius * 2);
+            g.DrawEllipse(pen, x, y, radiusX * 2, radiusY * 2);
         }
 
-        private void showCircleInfo(Graphics g, float x, float y, int radius, float life)
+        private void showCircleInfo(Graphics g, float x, float y, int radiusY, float life)
         {
             g.DrawString(
                 $"X : {x}\n" +
@@ -71,7 +71,7 @@ namespace kursovaya
                 new Font("Verdana", 10),
                 new SolidBrush(Color.White),
                 x,
-                y - radius
+                y - radiusY
                 );
         }
 
@@ -130,8 +130,8 @@ namespace kursovaya
                 int deviation = (int)(particle.speedX * 9);
                 Pen pen = new Pen(Brushes.Green);
                 speedVector.DrawLine(pen, new Point((int)particle.x, (int)particle.y),
-                    new Point((int)(particle.x + particle.radius * Math.Cos(deviation - 90)),
-                    (int)(particle.y + particle.radius * Math.Sin(deviation - 90))));
+                    new Point((int)(particle.x + particle.radiusX * Math.Cos(deviation - 90)),
+                    (int)(particle.y + particle.radiusY * Math.Sin(deviation - 90))));
             }
         }
 
@@ -152,6 +152,7 @@ namespace kursovaya
                     ParticleColorful part = new ParticleColorful(particle);
                     part.fromColor = emitter.ColorFrom;
                     part.toColor = emitter.ColorTo;
+                    part.figure = emitter.figure;
                     emitter.particles.Add(part);
                 }
                 emitter.currentHistoryIndex++;
@@ -182,6 +183,7 @@ namespace kursovaya
                     ParticleColorful part = new ParticleColorful(particle);
                     part.fromColor = emitter.ColorFrom;
                     part.toColor = emitter.ColorTo;
+                    part.figure = emitter.figure;
                     emitter.particles.Add(part);
                 }
                 emitter.currentHistoryIndex--;
@@ -226,6 +228,13 @@ namespace kursovaya
             {
                 particle.speedX = rnd.Next(-5, 5);
             }
+        }
+
+        private void particleFormDebugButton_Click(object sender, EventArgs e)
+        {
+            FormDebug form3 = new FormDebug();
+            form3.Owner = this;
+            form3.Show();
         }
     }
 }

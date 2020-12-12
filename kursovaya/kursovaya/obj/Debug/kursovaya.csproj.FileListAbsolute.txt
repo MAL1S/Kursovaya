@@ -29,3 +29,15 @@ D:\kursovaya\kursovaya\obj\Debug\kursovaya.exe
 D:\kursovaya\kursovaya\obj\Debug\kursovaya.pdb
 D:\Kursovaya\kursovaya\kursovaya\obj\Debug\kursovaya.ColorForm.resources
 D:\Kursovaya\kursovaya\kursovaya\obj\Debug\kursovaya.MainForm.resources
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\bin\Debug\kursovaya.exe.config
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\bin\Debug\kursovaya.exe
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\bin\Debug\kursovaya.pdb
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.csprojAssemblyReference.cache
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.ColorForm.resources
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.MainForm.resources
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.Properties.Resources.resources
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.csproj.GenerateResource.cache
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.csproj.CoreCompileInputs.cache
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.exe
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.pdb
+C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.FormDebug.resources

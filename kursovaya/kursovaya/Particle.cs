@@ -5,7 +5,9 @@ namespace kursovaya
 {
     public class Particle
     {
-        public int radius;
+        //public int radius;
+        public int radiusX;
+        public int radiusY;
         public float x;
         public float y;
 
@@ -13,17 +15,20 @@ namespace kursovaya
         public float speedY;
         public float life;
 
+        public string figure = "square";
+        public float rectWidth;
+        public float rectHeight;
+
+
         public static Random rnd = new Random();
 
         public Particle()
         {
             var direction = (double)rnd.Next(360);
-            //float speed = 5;
-
-            //speedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
-            //speedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
-
-            radius = 2 + rnd.Next(10);
+            radiusX = 2 + rnd.Next(10);
+            radiusY = 2 + rnd.Next(10);
+            rectHeight = 15 + rnd.Next(15);
+            rectWidth = 15 + rnd.Next(15);
             life = 20 + rnd.Next(100);
         }
 
@@ -31,10 +36,14 @@ namespace kursovaya
         {
             this.x = particle.x;
             this.y = particle.y;
-            this.radius = particle.radius;
+            this.radiusX = particle.radiusX;
+            this.radiusY = particle.radiusY;
             this.speedX = particle.speedX;
             this.speedY = particle.speedY;
             this.life = particle.life;
+            this.figure = particle.figure;
+            this.rectHeight = particle.rectHeight;
+            this.rectWidth = particle.rectWidth;
         }
 
         public virtual void draw(Graphics g)
@@ -45,7 +54,8 @@ namespace kursovaya
             var color = Color.FromArgb(alpha, Color.Black);
             var b = new SolidBrush(color);
 
-            g.FillEllipse(b, x - radius, y - radius, radius * 2, radius * 2);
+            if (figure.ToLower().Equals("circle")) g.FillEllipse(b, x - radiusX, y - radiusY, radiusX * 2, radiusY * 2);
+            else if (figure.ToLower().Equals("square")) g.FillRectangle(b, x, y, rectWidth, rectHeight);
 
             b.Dispose();
         }
@@ -67,12 +77,15 @@ namespace kursovaya
         {
             this.x = particleColorful.x;
             this.y = particleColorful.y;
-            this.radius = particleColorful.radius;
+            this.radiusX = particleColorful.radiusX;
+            this.radiusY = particleColorful.radiusY;
             this.speedX = particleColorful.speedX;
             this.speedY = particleColorful.speedY;
             this.life = particleColorful.life;
             this.fromColor = particleColorful.fromColor;
             this.toColor = particleColorful.toColor;
+            this.rectHeight = particleColorful.rectHeight;
+            this.rectWidth = particleColorful.rectWidth;
         }
 
         public static Color mixColor(Color color1, Color color2, float k)
@@ -92,7 +105,8 @@ namespace kursovaya
             var color = mixColor(toColor, fromColor, k);
             var b = new SolidBrush(color);
 
-            g.FillEllipse(b, x - radius, y - radius, radius * 2, radius * 2);
+            if (figure.ToLower().Equals("circle")) g.FillEllipse(b, x - radiusX, y - radiusY, radiusX * 2, radiusY * 2);
+            else if (figure.ToLower().Equals("square")) g.FillRectangle(b, x, y, rectWidth, rectHeight);
 
             b.Dispose();
         }
@@ -102,9 +116,18 @@ namespace kursovaya
             int deviation = (int)speedX;
 
             Pen pen = new Pen(Brushes.Green);
-            g.DrawLine(pen, new Point((int)x, (int)y),
+            if (figure.ToLower().Equals("circle"))
+            {
+                g.DrawLine(pen, new Point((int)x, (int)y),
                 new Point((int)(x + deviation),
-                (int)(y + radius / 4 * 3)));
+                (int)(y + radiusY / 4 * 3)));
+            }
+            else if (figure.ToLower().Equals("square"))
+            {
+                g.DrawLine(pen, new Point((int)(x + rectWidth / 2), (int)(y + rectHeight / 2)),
+                new Point((int)(x + rectWidth / 2 + deviation),
+                (int)(y + rectHeight / 4 * 3)));
+            }
             pen.Dispose();
         }
     }

@@ -21,10 +21,14 @@ namespace kursovaya
         public int Direction = 0; // вектор направления в градусах куда сыпет эмиттер
         public int Spreading = 360; // разброс частиц относительно Direction
         public float Speed = 0; // начальная минимальная скорость движения частицы
-        public int RadiusMin = 15; // минимальный радиус частицы
-        public int RadiusMax = 35; // максимальный радиус частицы
+        public int RadiusXMin = 15; // минимальный радиус частицы
+        public int RadiusXMax = 35; // максимальный радиус частицы
+        public int RadiusYMin = 15; // минимальный радиус частицы
+        public int RadiusYMax = 35; // максимальный радиус частицы
         public int LifeMin = 20; // минимальное время жизни частицы
         public int LifeMax = 100; // максимальное время жизни частицы
+        public int rectHeightMin = 15, rectWidthMin = 15;
+        public int rectHeightMax = 35, rectWidthMax = 35;
 
         public int ParticlesPerTick = 2;
         public long tickRate = 30;
@@ -32,6 +36,9 @@ namespace kursovaya
 
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
+
+
+        public string figure = "circle";
 
         public void updateState()
         {          
@@ -46,6 +53,7 @@ namespace kursovaya
                         ParticleColorful part = new ParticleColorful(particle);
                         part.fromColor = ColorFrom;
                         part.toColor = ColorTo;
+                        part.figure = figure;
                         particles.Add(part);
                     }
                     currentHistoryIndex++;
@@ -118,6 +126,7 @@ namespace kursovaya
                 if (particle is ParticleColorful) ((ParticleColorful)particle).drawSpeedVectors(g);
                 particle.fromColor = ColorFrom;
                 particle.toColor = ColorTo;
+                particle.figure = figure;
             }
         }
 
@@ -132,7 +141,16 @@ namespace kursovaya
             particle.speedX = (int)(Math.Cos(direction / 180 * Math.PI) * Speed);
             particle.speedY = -(float)(Math.Sin(direction / 180 * Math.PI) * Speed);
 
-            particle.radius = Particle.rnd.Next(RadiusMin, RadiusMax);
+            if (figure.ToLower().Equals("circle"))
+            {
+                particle.radiusX = Particle.rnd.Next(RadiusXMin, RadiusXMax);
+                particle.radiusY = Particle.rnd.Next(RadiusYMin, RadiusYMax);
+            }
+            else if (figure.ToLower().Equals("square"))
+            {
+                particle.rectHeight = Particle.rnd.Next(rectHeightMin, rectHeightMax);
+                particle.rectWidth = Particle.rnd.Next(rectWidthMin, rectWidthMax);
+            }
         }
 
         public virtual ParticleColorful CreateParticle()
@@ -140,7 +158,7 @@ namespace kursovaya
             var particle = new ParticleColorful();
             particle.fromColor = ColorFrom;
             particle.toColor = ColorTo;
-
+            particle.figure = figure;          
             return particle;
         }
 
@@ -149,21 +167,26 @@ namespace kursovaya
         {
             return new ParticleColorful
             {
-                radius = particle.radius,
+                radiusX = particle.radiusX,
+                radiusY = particle.radiusY,
                 speedX = particle.speedX,
                 speedY = particle.speedY,
                 x = particle.x,
                 y = particle.y,
                 life = particle.life,
+                figure = particle.figure,
+                rectWidth = particle.rectWidth,
+                rectHeight = particle.rectHeight
             };
         }
 
 
-        public bool ifInCircle(out float circleX, out float circleY, out int circleRadius, out float life)
+        public bool ifInCircle(out float circleX, out float circleY, out int circleRadiusX, out int circleRadiusY, out float life)
         {
             circleX = 0;
             circleY = 0;
-            circleRadius = 0;
+            circleRadiusX = 0;
+            circleRadiusY = 0;
             life = 0;
             foreach (var particle in particles)
             {
@@ -171,11 +194,12 @@ namespace kursovaya
                 float gY = Y - particle.y;
 
                 double r = Math.Sqrt(gX * gX + gY * gY); // считаем расстояние от центра точки до центра частицы
-                if (r + particle.radius <= particle.radius * 2) // если частица оказалось внутри окружности
+                if (r + particle.radiusX <= particle.radiusX * 2 || r + particle.radiusY <= particle.radiusY * 2) // если частица оказалось внутри эллипса
                 {
                     circleX = particle.x;
                     circleY = particle.y;
-                    circleRadius = particle.radius;
+                    circleRadiusX = particle.radiusX;
+                    circleRadiusY = particle.radiusY;
                     life = particle.life;
                     return true;
                 }
