@@ -206,6 +206,33 @@ namespace kursovaya
             }
             return false;
         }
+
+        public bool ifInSquare(out float rectX, out float rectY, out int rectWid, out int rectHeig, out float centerX, out float centerY, out float life)
+        {
+            rectX = 0;
+            rectY = 0;
+            rectWid = 0;
+            rectHeig = 0;
+            centerX = 0;
+            centerY = 0;
+            life = 0;
+            foreach (var particle in particles)
+            {
+                centerX = particle.x + particle.rectWidth / 2;
+                centerY = particle.y + particle.rectHeight / 2;
+                if (X <= centerX + particle.rectWidth/2 && X >= centerX - particle.rectWidth/2 && 
+                    Y <= centerY + particle.rectHeight/2 && Y >= centerY - particle.rectHeight/2)
+                {
+                    rectX = particle.x;
+                    rectY = particle.y;
+                    rectWid = particle.rectWidth;
+                    rectHeig = particle.rectHeight;
+                    life = particle.life;
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     public class TopEmitter : Emitter

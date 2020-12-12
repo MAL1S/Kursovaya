@@ -16,8 +16,8 @@ namespace kursovaya
         public float life;
 
         public string figure = "square";
-        public float rectWidth;
-        public float rectHeight;
+        public int rectWidth;
+        public int rectHeight;
 
 
         public static Random rnd = new Random();

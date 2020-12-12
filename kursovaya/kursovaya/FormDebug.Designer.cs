@@ -41,7 +41,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(381, 86);
+            this.label2.Location = new System.Drawing.Point(371, 78);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 13;
@@ -50,7 +50,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(381, 20);
+            this.label1.Location = new System.Drawing.Point(371, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 12;
@@ -58,7 +58,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(351, 140);
+            this.button2.Location = new System.Drawing.Point(341, 140);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 11;
@@ -89,7 +89,7 @@
             // 
             // hScrollBar1
             // 
-            this.hScrollBar1.Location = new System.Drawing.Point(225, 12);
+            this.hScrollBar1.Location = new System.Drawing.Point(225, 20);
             this.hScrollBar1.Maximum = 75;
             this.hScrollBar1.Minimum = 15;
             this.hScrollBar1.Name = "hScrollBar1";
@@ -119,7 +119,10 @@
             this.Controls.Add(this.hScrollBar2);
             this.Controls.Add(this.hScrollBar1);
             this.Controls.Add(this.pictureDebug);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FormDebug";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormDebug";
             ((System.ComponentModel.ISupportInitialize)(this.pictureDebug)).EndInit();
             this.ResumeLayout(false);

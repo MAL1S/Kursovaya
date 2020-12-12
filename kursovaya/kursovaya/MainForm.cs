@@ -46,30 +46,58 @@ namespace kursovaya
             emitter.X = e.X;
             emitter.Y = e.Y;
 
-            float circleX, circleY, life;
-            int circleRadiusX, circleRadiusY;
-            if (emitter.ifInCircle(out circleX, out circleY, out circleRadiusX, out circleRadiusY, out life))
+
+            if (emitter.figure.ToLower().Equals("circle"))
             {
-                Graphics circle = picDisplay.CreateGraphics();
-                drawEllipse(circle, circleX - circleRadiusX, circleY - circleRadiusY, circleRadiusX, circleRadiusY);
-                showCircleInfo(circle, circleX, circleY, circleRadiusY, life);
+                float circleX, circleY, life;
+                int circleRadiusX, circleRadiusY;
+                if (emitter.ifInCircle(out circleX, out circleY, out circleRadiusX, out circleRadiusY, out life))
+                {
+                    Graphics circle = picDisplay.CreateGraphics();
+                    drawEllipse(circle, circleX - circleRadiusX, circleY - circleRadiusY, circleRadiusX, circleRadiusY);
+                    showInfo(circle, circleX, circleY, circleRadiusY, life, circleRadiusX, circleRadiusY);
+                }
             }
+            else if (emitter.figure.ToLower().Equals("square"))
+            {
+                float rectX, rectY, centerX, centerY, life;
+                int rectWid, rectHeig;
+                if (emitter.ifInSquare(out rectX, out rectY, out rectWid, out rectHeig, out centerX, out centerY, out life))
+                {
+                    Graphics square = picDisplay.CreateGraphics();
+                    drawSquare(square, rectX, rectY, rectWid, rectHeig);
+                    showInfo(square, centerX, centerY, rectHeig, life, rectWid, rectHeig);
+                }
+            }
+        }
+
+        private void drawSquare(Graphics g, float x, float y, float wid, float heig)
+        {
+            Pen pen = new Pen(Color.Red);
+            g.DrawRectangle(pen, x, y, wid, heig);
         }
 
         private void drawEllipse(Graphics g, float x, float y, int radiusX, int radiusY)
         {
-            Pen pen = new Pen(Brushes.Red);
+            Pen pen = new Pen(Color.Red);
             g.DrawEllipse(pen, x, y, radiusX * 2, radiusY * 2);
         }
 
-        private void showCircleInfo(Graphics g, float x, float y, int radiusY, float life)
+        private void showInfo(Graphics g, float x, float y, int radiusY, float life, int width, int height)
         {
+            g.FillRectangle(
+                new SolidBrush(Color.FromArgb(70, 0, 0, 255)),
+                x,
+                y-radiusY,
+                60,
+                50
+                );
             g.DrawString(
                 $"X : {x}\n" +
                 $"Y : {y}\n" +
                 $"Life : {life}",
                 new Font("Verdana", 10),
-                new SolidBrush(Color.White),
+                new SolidBrush(Color.FromArgb(70, 255, 255, 255)),
                 x,
                 y - radiusY
                 );

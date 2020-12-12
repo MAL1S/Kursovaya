@@ -63,7 +63,7 @@
             // 
             // speedBar
             // 
-            this.speedBar.Location = new System.Drawing.Point(282, 475);
+            this.speedBar.Location = new System.Drawing.Point(502, 470);
             this.speedBar.Maximum = 9;
             this.speedBar.Name = "speedBar";
             this.speedBar.Size = new System.Drawing.Size(134, 45);
@@ -83,7 +83,7 @@
             // 
             // stepButton
             // 
-            this.stepButton.Location = new System.Drawing.Point(31, 499);
+            this.stepButton.Location = new System.Drawing.Point(257, 455);
             this.stepButton.Name = "stepButton";
             this.stepButton.Size = new System.Drawing.Size(107, 38);
             this.stepButton.TabIndex = 5;
@@ -93,7 +93,7 @@
             // 
             // stopButton
             // 
-            this.stopButton.Location = new System.Drawing.Point(148, 455);
+            this.stopButton.Location = new System.Drawing.Point(144, 455);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(107, 38);
             this.stopButton.TabIndex = 9;
@@ -103,7 +103,7 @@
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(148, 499);
+            this.backButton.Location = new System.Drawing.Point(370, 455);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(107, 38);
             this.backButton.TabIndex = 10;
@@ -114,7 +114,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(294, 459);
+            this.label1.Location = new System.Drawing.Point(514, 454);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 13);
             this.label1.TabIndex = 11;
@@ -123,7 +123,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(289, 499);
+            this.label2.Location = new System.Drawing.Point(509, 494);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(121, 13);
             this.label2.TabIndex = 13;
@@ -131,7 +131,7 @@
             // 
             // colorButton
             // 
-            this.colorButton.Location = new System.Drawing.Point(463, 446);
+            this.colorButton.Location = new System.Drawing.Point(803, 92);
             this.colorButton.Name = "colorButton";
             this.colorButton.Size = new System.Drawing.Size(158, 57);
             this.colorButton.TabIndex = 14;
@@ -141,7 +141,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(630, 446);
+            this.button1.Location = new System.Drawing.Point(803, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(158, 57);
             this.button1.TabIndex = 16;
@@ -151,7 +151,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(463, 511);
+            this.button2.Location = new System.Drawing.Point(803, 175);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(158, 57);
             this.button2.TabIndex = 17;
@@ -161,7 +161,7 @@
             // 
             // particleFormDebugButton
             // 
-            this.particleFormDebugButton.Location = new System.Drawing.Point(847, 370);
+            this.particleFormDebugButton.Location = new System.Drawing.Point(803, 305);
             this.particleFormDebugButton.Name = "particleFormDebugButton";
             this.particleFormDebugButton.Size = new System.Drawing.Size(158, 133);
             this.particleFormDebugButton.TabIndex = 20;
@@ -173,7 +173,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1054, 580);
+            this.ClientSize = new System.Drawing.Size(967, 512);
             this.Controls.Add(this.particleFormDebugButton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -186,7 +186,10 @@
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.speedBar);
             this.Controls.Add(this.picDisplay);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).EndInit();
