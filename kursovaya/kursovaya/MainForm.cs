@@ -46,7 +46,7 @@ namespace kursovaya
             emitter.X = e.X;
             emitter.Y = e.Y;
 
-
+            // показ информации о частицах
             if (emitter.figure.ToLower().Equals("circle"))
             {
                 float circleX, circleY, life;
@@ -109,6 +109,7 @@ namespace kursovaya
             setTickRate();
         }
 
+        // устанавливает тикРейт в зависимости от трекБара
         private void setTickRate()
         {
             switch (speedBar.Value)
@@ -149,6 +150,7 @@ namespace kursovaya
             }
         }
 
+        // рисует вектор скорости внутри частицы
         public void drawSpeedVector()
         {
             Graphics speedVector = picDisplay.CreateGraphics();
@@ -168,6 +170,7 @@ namespace kursovaya
             ifRun = false;
         }
 
+        //ВПЕРЕД
         private void stepButton_Click(object sender, EventArgs e)
         {
             ifRun = false;
@@ -199,6 +202,7 @@ namespace kursovaya
             setTickRate();
         }
 
+        //НАЗАД
         private void backButton_Click(object sender, EventArgs e)
         {
             ifRun = false;

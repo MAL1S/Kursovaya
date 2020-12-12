@@ -6,8 +6,8 @@ namespace kursovaya
     public class Particle
     {
         //public int radius;
-        public int radiusX;
-        public int radiusY;
+        public int radiusX; // радиус эллипса по горизонтали
+        public int radiusY; // радиус эллипса по вертикали
         public float x;
         public float y;
 
@@ -16,8 +16,8 @@ namespace kursovaya
         public float life;
 
         public string figure = "square";
-        public int rectWidth;
-        public int rectHeight;
+        public int rectWidth; // ширина прямоугольника
+        public int rectHeight; // высота его же
 
 
         public static Random rnd = new Random();

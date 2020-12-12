@@ -27,8 +27,8 @@ namespace kursovaya
         public int RadiusYMax = 35; // максимальный радиус частицы
         public int LifeMin = 20; // минимальное время жизни частицы
         public int LifeMax = 100; // максимальное время жизни частицы
-        public int rectHeightMin = 15, rectWidthMin = 15;
-        public int rectHeightMax = 35, rectWidthMax = 35;
+        public int rectHeightMin = 15, rectWidthMin = 15; // минимальные значения ширины и высоты прямоугольников
+        public int rectHeightMax = 35, rectWidthMax = 35; // максимальные значения ширины и высоты прямоугольников
 
         public int ParticlesPerTick = 2;
         public long tickRate = 30;
@@ -38,7 +38,7 @@ namespace kursovaya
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
 
 
-        public string figure = "circle";
+        public string figure = "circle"; // показывает, какая сейчас фигура
 
         public void updateState()
         {          
@@ -141,6 +141,7 @@ namespace kursovaya
             particle.speedX = (int)(Math.Cos(direction / 180 * Math.PI) * Speed);
             particle.speedY = -(float)(Math.Sin(direction / 180 * Math.PI) * Speed);
 
+            // задаю размеры в зависимости от текущей фигуры
             if (figure.ToLower().Equals("circle"))
             {
                 particle.radiusX = Particle.rnd.Next(RadiusXMin, RadiusXMax);
@@ -220,6 +221,7 @@ namespace kursovaya
             {
                 centerX = particle.x + particle.rectWidth / 2;
                 centerY = particle.y + particle.rectHeight / 2;
+                // проверяю, находится ли точка внутри прямоугольника
                 if (X <= centerX + particle.rectWidth/2 && X >= centerX - particle.rectWidth/2 && 
                     Y <= centerY + particle.rectHeight/2 && Y >= centerY - particle.rectHeight/2)
                 {

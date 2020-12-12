@@ -41,3 +41,4 @@ C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\D
 C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.exe
 C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.pdb
 C:\Users\MALIS\Downloads\Kursovaya-main\Kursovaya-main\kursovaya\kursovaya\obj\Debug\kursovaya.FormDebug.resources
+D:\Kursovaya\kursovaya\kursovaya\obj\Debug\kursovaya.FormDebug.resources

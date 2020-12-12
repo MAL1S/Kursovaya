@@ -21,50 +21,7 @@ namespace kursovaya
             return Math.Min(Math.Min(a, b), c);
         }
         static public void HSVToRGB(double H, double S, double V, out int R, out int G, out int B)
-        {
-            /*int Hue = (int)Math.Floor(H / 60) % 6; //в какой части круга находится оттенок, 360/60 = 6 частей
-            double Vmin = ((100 - S) * V) / 100;
-            double a = (V - Vmin) * ((H % 60) / 60);
-            double Vinc = Vmin + a;
-            double Vdec = V - a;
-            double RT = 0, GT = 0, BT = 0;
-            switch (Hue)
-            {
-                case 0:
-                    RT = V;
-                    GT = Vinc;
-                    BT = Vmin;
-                    break;
-                case 1:
-                    RT = Vdec;
-                    GT = V;
-                    BT = Vmin;
-                    break;
-                case 2:
-                    RT = Vmin;
-                    GT = V;
-                    BT = Vinc;
-                    break;
-                case 3:
-                    RT = Vmin;
-                    GT = Vdec;
-                    BT = V;
-                    break;
-                case 4:
-                    RT = Vinc;
-                    GT = Vmin;
-                    BT = V;
-                    break;
-                case 5:
-                    RT = V;
-                    GT = Vmin;
-                    BT = Vdec;
-                    break;
-            }
-            R = (byte)Math.Round(RT * 2.55);
-            G = (byte)Math.Round(GT * 2.55);
-            B = (byte)Math.Round(BT * 2.55);*/
-
+        {          
             S /= 100;
             V /= 100;
             double C = V * S; //насыщенность цвета
