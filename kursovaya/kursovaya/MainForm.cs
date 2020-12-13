@@ -36,9 +36,29 @@ namespace kursovaya
             {
                 g.Clear(Color.Black);
                 emitter.render(g);
+
+
+                if (emitter.figure.ToLower().Equals("circle"))
+                {
+                    Particle particle = emitter.ifInCircle();
+                    if (particle != null)
+                    {
+                        drawEllipse(g, particle);
+                        showInfo(g, particle);
+                    }
+                }
+                else if (emitter.figure.ToLower().Equals("square"))
+                {
+                    Particle particle = emitter.ifInSquare();
+                    if (particle != null)
+                    {
+                        drawSquare(g, particle);
+                        showInfo(g, particle);
+                    }
+                }
             }
             picDisplay.Invalidate();
-            stepPermission = false;      
+            stepPermission = false;
         }
 
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
@@ -47,59 +67,38 @@ namespace kursovaya
             emitter.Y = e.Y;
 
             // показ информации о частицах
-            if (emitter.figure.ToLower().Equals("circle"))
-            {
-                float circleX, circleY, life;
-                int circleRadiusX, circleRadiusY;
-                if (emitter.ifInCircle(out circleX, out circleY, out circleRadiusX, out circleRadiusY, out life))
-                {
-                    Graphics circle = picDisplay.CreateGraphics();
-                    drawEllipse(circle, circleX - circleRadiusX, circleY - circleRadiusY, circleRadiusX, circleRadiusY);
-                    showInfo(circle, circleX, circleY, circleRadiusY, life, circleRadiusX, circleRadiusY);
-                }
-            }
-            else if (emitter.figure.ToLower().Equals("square"))
-            {
-                float rectX, rectY, centerX, centerY, life;
-                int rectWid, rectHeig;
-                if (emitter.ifInSquare(out rectX, out rectY, out rectWid, out rectHeig, out centerX, out centerY, out life))
-                {
-                    Graphics square = picDisplay.CreateGraphics();
-                    drawSquare(square, rectX, rectY, rectWid, rectHeig);
-                    showInfo(square, centerX, centerY, rectHeig, life, rectWid, rectHeig);
-                }
-            }
+            
         }
 
-        private void drawSquare(Graphics g, float x, float y, float wid, float heig)
+        private void drawSquare(Graphics g, Particle particle)
         {
             Pen pen = new Pen(Color.Red);
-            g.DrawRectangle(pen, x, y, wid, heig);
+            g.DrawRectangle(pen, particle.x, particle.y, particle.rectWidth, particle.rectHeight);
         }
 
-        private void drawEllipse(Graphics g, float x, float y, int radiusX, int radiusY)
+        private void drawEllipse(Graphics g, Particle particle)
         {
             Pen pen = new Pen(Color.Red);
-            g.DrawEllipse(pen, x, y, radiusX * 2, radiusY * 2);
+            g.DrawEllipse(pen, particle.x - particle.radiusX, particle.y - particle.radiusY, particle.radiusX * 2, particle.radiusY * 2);
         }
 
-        private void showInfo(Graphics g, float x, float y, int radiusY, float life, int width, int height)
+        private void showInfo(Graphics g, Particle particle)
         {
             g.FillRectangle(
-                new SolidBrush(Color.FromArgb(70, 0, 0, 255)),
-                x,
-                y-radiusY,
+                new SolidBrush(Color.FromArgb(100, 0, 0, 255)),
+                particle.x,
+                particle.y-particle.radiusY,
                 60,
                 50
                 );
             g.DrawString(
-                $"X : {x}\n" +
-                $"Y : {y}\n" +
-                $"Life : {life}",
+                $"X : {particle.x}\n" +
+                $"Y : {particle.y}\n" +
+                $"Life : {particle.life}",
                 new Font("Verdana", 10),
-                new SolidBrush(Color.FromArgb(70, 255, 255, 255)),
-                x,
-                y - radiusY
+                new SolidBrush(Color.FromArgb(200, 153, 255, 153)),
+                particle.x,
+                particle.y - particle.radiusY
                 );
         }
 
@@ -174,7 +173,7 @@ namespace kursovaya
         private void stepButton_Click(object sender, EventArgs e)
         {
             ifRun = false;
-            if (emitter.currentHistoryIndex < emitter.particlesHistory.Count-1 && emitter.currentHistoryIndex != 19)
+            if (emitter.currentHistoryIndex < emitter.particlesHistory.Count-1 && emitter.currentHistoryIndex != emitter.MAX_HISTORY_LENGTH)
             {
                 //поставить значения дальше по списку
                 emitter.particles.RemoveRange(0, emitter.particles.Count);
@@ -210,7 +209,7 @@ namespace kursovaya
             {
                 //вернуться на значения из списка
                 emitter.particles.RemoveRange(0, emitter.particles.Count);
-                foreach (ParticleColorful particle in emitter.particlesHistory[emitter.currentHistoryIndex - 2])
+                foreach (ParticleColorful particle in emitter.particlesHistory[emitter.currentHistoryIndex - 1])
                 {
                     ParticleColorful part = new ParticleColorful(particle);
                     part.fromColor = emitter.ColorFrom;
@@ -227,7 +226,7 @@ namespace kursovaya
             //открытие второго окна с выбором цвета
             ColorForm form2 = new ColorForm();
             form2.Owner = this;
-            form2.Show();
+            form2.ShowDialog();
         }
 
         public void setParticleColorFrom(int R, int G, int B)
@@ -266,7 +265,7 @@ namespace kursovaya
         {
             FormDebug form3 = new FormDebug();
             form3.Owner = this;
-            form3.Show();
+            form3.ShowDialog();
         }
     }
 }

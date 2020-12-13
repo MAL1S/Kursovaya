@@ -24,11 +24,13 @@ namespace kursovaya
             Pen pen = new Pen(Color.Black);
             if (main.emitter.figure.Equals("circle"))
             {
-                e.Graphics.DrawEllipse(pen, pictureDebug.Width / 2, pictureDebug.Height / 2, main.emitter.RadiusXMax, main.emitter.RadiusYMax);
+                e.Graphics.DrawEllipse(pen, pictureDebug.Width / 2 - main.emitter.RadiusXMax/2, pictureDebug.Height / 2 - main.emitter.RadiusYMax/2, 
+                    main.emitter.RadiusXMax, main.emitter.RadiusYMax);
             }
             else if (main.emitter.figure.Equals("square"))
             {
-                e.Graphics.DrawRectangle(pen, pictureDebug.Width / 2, pictureDebug.Height / 2, main.emitter.rectWidthMax, main.emitter.rectHeightMax);
+                e.Graphics.DrawRectangle(pen, pictureDebug.Width / 2 - main.emitter.rectWidthMax/2, pictureDebug.Height / 2 - main.emitter.rectHeightMax/2, 
+                    main.emitter.rectWidthMax, main.emitter.rectHeightMax);
             }
         }
 

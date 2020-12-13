@@ -10,6 +10,7 @@ namespace kursovaya
         public List<List<ParticleColorful>> particlesHistory = new List<List<ParticleColorful>>(20);
         public int currentHistoryIndex = 0;
         public bool ifAdd = true; //в первый раз ли достигается последняя граница списка истории
+        public int MAX_HISTORY_LENGTH = 19;
 
         public float gravitationX = 0;
         public float gravitationY = 0;
@@ -44,7 +45,7 @@ namespace kursovaya
         {          
             if (tickCount % tickRate == 0)
             {
-                if (currentHistoryIndex != 19 && currentHistoryIndex < particlesHistory.Count - 1)
+                if (currentHistoryIndex != MAX_HISTORY_LENGTH && currentHistoryIndex < particlesHistory.Count - 1)
                 {
                     //поставить значения дальше по списку
                     particles.RemoveRange(0, particles.Count);
@@ -91,9 +92,9 @@ namespace kursovaya
                     particles.Add(particle);
                 }
 
-                if (currentHistoryIndex < 19)
+                if (currentHistoryIndex < MAX_HISTORY_LENGTH)
                 {
-                    particlesHistory.Add(new List<ParticleColorful>());
+                    if (currentHistoryIndex >= particlesHistory.Count) particlesHistory.Add(new List<ParticleColorful>());
                     foreach (var particle in particles)
                     {
                         ParticleColorful part = createParticleColorful(particle);
@@ -106,7 +107,7 @@ namespace kursovaya
                 {
                     if (!ifAdd) particlesHistory.RemoveAt(0);
                     ifAdd = false;
-                    particlesHistory.Add(new List<ParticleColorful>());
+                     particlesHistory.Add(new List<ParticleColorful>());
                     foreach (var particle in particles)
                     {
                         ParticleColorful part = createParticleColorful(particle);
@@ -182,13 +183,8 @@ namespace kursovaya
         }
 
 
-        public bool ifInCircle(out float circleX, out float circleY, out int circleRadiusX, out int circleRadiusY, out float life)
+        public Particle ifInCircle()
         {
-            circleX = 0;
-            circleY = 0;
-            circleRadiusX = 0;
-            circleRadiusY = 0;
-            life = 0;
             foreach (var particle in particles)
             {
                 float gX = X - particle.x;
@@ -197,43 +193,26 @@ namespace kursovaya
                 double r = Math.Sqrt(gX * gX + gY * gY); // считаем расстояние от центра точки до центра частицы
                 if (r + particle.radiusX <= particle.radiusX * 2 || r + particle.radiusY <= particle.radiusY * 2) // если частица оказалось внутри эллипса
                 {
-                    circleX = particle.x;
-                    circleY = particle.y;
-                    circleRadiusX = particle.radiusX;
-                    circleRadiusY = particle.radiusY;
-                    life = particle.life;
-                    return true;
+                    return particle;
                 }
             }
-            return false;
+            return null;
         }
 
-        public bool ifInSquare(out float rectX, out float rectY, out int rectWid, out int rectHeig, out float centerX, out float centerY, out float life)
+        public Particle ifInSquare()
         {
-            rectX = 0;
-            rectY = 0;
-            rectWid = 0;
-            rectHeig = 0;
-            centerX = 0;
-            centerY = 0;
-            life = 0;
             foreach (var particle in particles)
             {
-                centerX = particle.x + particle.rectWidth / 2;
-                centerY = particle.y + particle.rectHeight / 2;
+                float centerX = particle.x + particle.rectWidth / 2;
+                float centerY = particle.y + particle.rectHeight / 2;
                 // проверяю, находится ли точка внутри прямоугольника
                 if (X <= centerX + particle.rectWidth/2 && X >= centerX - particle.rectWidth/2 && 
                     Y <= centerY + particle.rectHeight/2 && Y >= centerY - particle.rectHeight/2)
                 {
-                    rectX = particle.x;
-                    rectY = particle.y;
-                    rectWid = particle.rectWidth;
-                    rectHeig = particle.rectHeight;
-                    life = particle.life;
-                    return true;
+                    return particle;
                 }
             }
-            return false;
+            return null;
         }
     }
 
