@@ -10,7 +10,7 @@ namespace kursovaya
         public List<List<ParticleColorful>> particlesHistory = new List<List<ParticleColorful>>(20);
         public int currentHistoryIndex = 0;
         public bool ifAdd = true; //в первый раз ли достигается последняя граница списка истории
-        public int MAX_HISTORY_LENGTH = 19;
+        public int MAX_HISTORY_LENGTH = 19; // максимальная длина списка истории частиц
 
         public float gravitationX = 0;
         public float gravitationY = 0;
@@ -43,12 +43,14 @@ namespace kursovaya
 
         public void updateState()
         {          
+            //зависимость от скорости, выставленной на mainForm
             if (tickCount % tickRate == 0)
             {
+                //если надо идти вперед по значениям из списка истории состояний
                 if (currentHistoryIndex != MAX_HISTORY_LENGTH && currentHistoryIndex < particlesHistory.Count - 1)
                 {
                     //поставить значения дальше по списку
-                    particles.RemoveRange(0, particles.Count);
+                    particles.RemoveRange(0, particles.Count); //очистка текущего состояния частиц
                     foreach (ParticleColorful particle in particlesHistory[currentHistoryIndex + 1])
                     {
                         ParticleColorful part = new ParticleColorful(particle);
@@ -92,6 +94,7 @@ namespace kursovaya
                     particles.Add(particle);
                 }
 
+                //если список истории состояний еще не заполнен, то добавить туда список состояний
                 if (currentHistoryIndex < MAX_HISTORY_LENGTH)
                 {
                     if (currentHistoryIndex >= particlesHistory.Count) particlesHistory.Add(new List<ParticleColorful>());
@@ -103,6 +106,7 @@ namespace kursovaya
                     currentHistoryIndex++;
                     ifAdd = true;
                 }
+                //иначе удалить первые состояния и добавить в конец списка текущие
                 else
                 {
                     if (!ifAdd) particlesHistory.RemoveAt(0);
@@ -182,7 +186,7 @@ namespace kursovaya
             };
         }
 
-
+        //если курсор находится в эллипсе
         public Particle ifInCircle()
         {
             foreach (var particle in particles)
@@ -199,6 +203,7 @@ namespace kursovaya
             return null;
         }
 
+        //если курсор находится в прямоугольнике
         public Particle ifInSquare()
         {
             foreach (var particle in particles)

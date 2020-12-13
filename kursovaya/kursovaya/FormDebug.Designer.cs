@@ -123,7 +123,7 @@
             this.MaximizeBox = false;
             this.Name = "FormDebug";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormDebug";
+            this.Text = "Редактор формы частиц";
             ((System.ComponentModel.ISupportInitialize)(this.pictureDebug)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

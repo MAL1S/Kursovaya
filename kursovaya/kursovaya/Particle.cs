@@ -15,7 +15,7 @@ namespace kursovaya
         public float speedY;
         public float life;
 
-        public string figure = "square";
+        public string figure = "circle"; //текущая форма частицы
         public int rectWidth; // ширина прямоугольника
         public int rectHeight; // высота его же
 
@@ -54,6 +54,7 @@ namespace kursovaya
             var color = Color.FromArgb(alpha, Color.Black);
             var b = new SolidBrush(color);
 
+            //рисование частиц в зависимости от их формы
             if (figure.ToLower().Equals("circle")) g.FillEllipse(b, x - radiusX, y - radiusY, radiusX * 2, radiusY * 2);
             else if (figure.ToLower().Equals("square")) g.FillRectangle(b, x, y, rectWidth, rectHeight);
 
@@ -105,6 +106,7 @@ namespace kursovaya
             var color = mixColor(toColor, fromColor, k);
             var b = new SolidBrush(color);
 
+            //рисование частиц в зависимости от их форм
             if (figure.ToLower().Equals("circle")) g.FillEllipse(b, x - radiusX, y - radiusY, radiusX * 2, radiusY * 2);
             else if (figure.ToLower().Equals("square")) g.FillRectangle(b, x, y, rectWidth, rectHeight);
 
@@ -116,6 +118,8 @@ namespace kursovaya
             int deviation = (int)speedX;
 
             Pen pen = new Pen(Brushes.Green);
+
+            //рисование векторов скорости в зависимости от форм частиц
             if (figure.ToLower().Equals("circle"))
             {
                 g.DrawLine(pen, new Point((int)x, (int)y),

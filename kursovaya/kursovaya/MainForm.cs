@@ -11,8 +11,8 @@ namespace kursovaya
     public partial class MainForm : Form
     {
         public Emitter emitter;
-        bool ifRun = true;
-        bool stepPermission = false;
+        bool ifRun = true; //запустить ли вызов метода updateState в тике таймера
+        bool stepPermission = false; //при шаге разрешает 1 раз запустить updateState
 
         public MainForm()
         {
@@ -37,7 +37,7 @@ namespace kursovaya
                 g.Clear(Color.Black);
                 emitter.render(g);
 
-
+                //рисование обводки частиц и информации про них
                 if (emitter.figure.ToLower().Equals("circle"))
                 {
                     Particle particle = emitter.ifInCircle();
@@ -58,30 +58,30 @@ namespace kursovaya
                 }
             }
             picDisplay.Invalidate();
-            stepPermission = false;
+            stepPermission = false; //тут запрещает делать updateState, пока не будет нажата кнопка запуска
         }
 
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
             emitter.X = e.X;
             emitter.Y = e.Y;
-
-            // показ информации о частицах
-            
         }
 
+        //рисование обводки прямоугольника
         private void drawSquare(Graphics g, Particle particle)
         {
             Pen pen = new Pen(Color.Red);
             g.DrawRectangle(pen, particle.x, particle.y, particle.rectWidth, particle.rectHeight);
         }
 
+        //рисование обводки эллипса
         private void drawEllipse(Graphics g, Particle particle)
         {
             Pen pen = new Pen(Color.Red);
             g.DrawEllipse(pen, particle.x - particle.radiusX, particle.y - particle.radiusY, particle.radiusX * 2, particle.radiusY * 2);
         }
 
+        //показ информации о частице
         private void showInfo(Graphics g, Particle particle)
         {
             g.FillRectangle(
@@ -164,6 +164,7 @@ namespace kursovaya
             }
         }
 
+        //СТОП
         private void stopButton_Click(object sender, EventArgs e)
         {
             ifRun = false;
@@ -190,7 +191,7 @@ namespace kursovaya
             else
             {
                 emitter.tickCount += (emitter.tickRate - emitter.tickCount % emitter.tickRate);
-                stepPermission = true;
+                stepPermission = true; //тут разрешает сделать один раз updateState
             }
         }
 
@@ -221,24 +222,27 @@ namespace kursovaya
             }
         }
 
+        //открытие второго окна с выбором цвета
         private void colorButton_Click(object sender, EventArgs e)
         {
-            //открытие второго окна с выбором цвета
             ColorForm form2 = new ColorForm();
             form2.Owner = this;
             form2.ShowDialog();
         }
 
+        //устанавливает начальный цвет частиц
         public void setParticleColorFrom(int R, int G, int B)
         {
             emitter.ColorFrom = Color.FromArgb(R, G, B);
         }
 
+        //устанавливает конечный цвет частиц
         public void setParticleColorTo(int R, int G, int B)
         {
             emitter.ColorTo = Color.FromArgb(R, G, B);
         }
 
+        //случайные цвета частицам
         private void button1_Click(object sender, EventArgs e)
         {
             Random rand = new Random();
@@ -252,6 +256,7 @@ namespace kursovaya
             emitter.ColorTo = Color.FromArgb(R1, G1, B1);
         }
 
+        //случайные векторы скорости
         private void button2_Click(object sender, EventArgs e)
         {
             var rnd = new Random();
@@ -261,6 +266,7 @@ namespace kursovaya
             }
         }
 
+        //открытие окна с редактором формы частиц
         private void particleFormDebugButton_Click(object sender, EventArgs e)
         {
             FormDebug form3 = new FormDebug();

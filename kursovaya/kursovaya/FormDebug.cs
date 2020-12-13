@@ -22,12 +22,12 @@ namespace kursovaya
         {
             MainForm main = this.Owner as MainForm;
             Pen pen = new Pen(Color.Black);
-            if (main.emitter.figure.Equals("circle"))
+            if (main.emitter.figure.ToLower().Equals("circle"))
             {
                 e.Graphics.DrawEllipse(pen, pictureDebug.Width / 2 - main.emitter.RadiusXMax/2, pictureDebug.Height / 2 - main.emitter.RadiusYMax/2, 
                     main.emitter.RadiusXMax, main.emitter.RadiusYMax);
             }
-            else if (main.emitter.figure.Equals("square"))
+            else if (main.emitter.figure.ToLower().Equals("square"))
             {
                 e.Graphics.DrawRectangle(pen, pictureDebug.Width / 2 - main.emitter.rectWidthMax/2, pictureDebug.Height / 2 - main.emitter.rectHeightMax/2, 
                     main.emitter.rectWidthMax, main.emitter.rectHeightMax);
