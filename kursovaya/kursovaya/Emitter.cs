@@ -17,7 +17,7 @@ namespace kursovaya
 
         public int particlesCount = 50;
 
-        public int X; // координата X центра эмиттера, будем ее использовать вместо MousePositionX
+        public int X; // координата X центра эмиттера
         public int Y; // соответствующая координата Y 
         public int Direction = 0; // вектор направления в градусах куда сыпет эмиттер
         public int Spreading = 360; // разброс частиц относительно Direction
@@ -111,7 +111,7 @@ namespace kursovaya
                 {
                     if (!ifAdd) particlesHistory.RemoveAt(0);
                     ifAdd = false;
-                     particlesHistory.Add(new List<ParticleColorful>());
+                    particlesHistory.Add(new List<ParticleColorful>());
                     foreach (var particle in particles)
                     {
                         ParticleColorful part = createParticleColorful(particle);
